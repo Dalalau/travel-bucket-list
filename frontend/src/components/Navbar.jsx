@@ -5,141 +5,124 @@ import { useState } from 'react';
 export default function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/');
-    setMenuOpen(false);
+    setOpen(false);
   };
 
   return (
-    <nav style={styles.nav}>
-      <Link to="/" style={styles.brand}>🌍 Travel Bucket List</Link>
-
-      {/* Hamburger button for mobile */}
-      <button
-        style={styles.hamburger}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        {menuOpen ? '✕' : '☰'}
-      </button>
-
-      {/* Desktop links */}
-      <div style={styles.desktopLinks}>
-        {isAuthenticated ? (
-          <>
-            <span style={styles.welcome}>Hi, {user?.name}</span>
-            <Link to="/destinations" style={styles.link}>My List</Link>
-            <button onClick={handleLogout} style={styles.button}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" style={styles.link}>Login</Link>
-            <Link to="/register" style={styles.link}>Register</Link>
-          </>
-        )}
-      </div>
-
-      {/* Mobile dropdown */}
-      {menuOpen && (
-        <div style={styles.mobileMenu}>
+    <>
+      <nav style={s.nav}>
+        <Link to="/" style={s.brand}>
+          <span style={s.brandIcon}>✈</span>
+          <span style={s.brandText}>Travel Bucket List</span>
+        </Link>
+        <button style={s.burger} onClick={() => setOpen(!open)}>
+          {open ? '✕' : '☰'}
+        </button>
+      </nav>
+      {open && (
+        <div style={s.drawer}>
           {isAuthenticated ? (
             <>
-              <span style={styles.mobileWelcome}>Hi, {user?.name}</span>
-              <Link to="/destinations" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>My List</Link>
-              <button onClick={handleLogout} style={styles.mobileButton}>Logout</button>
+              <div style={s.drawerUser}>👤 {user?.name}</div>
+              <Link to="/destinations" style={s.drawerLink} onClick={() => setOpen(false)}>🗺 My List</Link>
+              <button onClick={handleLogout} style={s.drawerLogout}>Logout</button>
             </>
           ) : (
             <>
-              <Link to="/login" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>Login</Link>
-              <Link to="/register" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>Register</Link>
+              <Link to="/login" style={s.drawerLink} onClick={() => setOpen(false)}>Login</Link>
+              <Link to="/register" style={s.drawerLink} onClick={() => setOpen(false)}>Register</Link>
             </>
           )}
         </div>
       )}
-    </nav>
+    </>
   );
 }
 
-const styles = {
+const s = {
   nav: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '1rem 1.5rem',
-    background: '#1a1a2e',
-    color: 'white',
-    position: 'relative',
-    flexWrap: 'wrap',
+    padding: '0 1.5rem',
+    height: '64px',
+    background: 'var(--navy)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    boxShadow: '0 2px 16px rgba(0,0,0,0.3)',
   },
   brand: {
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    color: 'white',
-    textDecoration: 'none',
-  },
-  hamburger: {
-    display: 'none',
-    background: 'none',
-    border: 'none',
-    color: 'white',
-    fontSize: '1.5rem',
-    cursor: 'pointer',
-    '@media (max-width: 600px)': {
-      display: 'block',
-    },
-  },
-  desktopLinks: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1.5rem',
-  },
-  link: {
-    color: '#e0e0e0',
+    gap: '0.6rem',
     textDecoration: 'none',
-    fontSize: '1rem',
   },
-  welcome: {
-    color: '#a0c4ff',
+  brandIcon: {
+    fontSize: '1.4rem',
+    color: 'var(--amber)',
   },
-  button: {
-    background: '#e63946',
-    color: 'white',
-    border: 'none',
-    padding: '0.4rem 1rem',
-    borderRadius: '6px',
+  brandText: {
+    fontFamily: 'var(--font-display)',
+    fontSize: '1.15rem',
+    fontWeight: '700',
+    color: 'var(--white)',
+    letterSpacing: '0.01em',
+  },
+  burger: {
+    background: 'none',
+    border: '1.5px solid rgba(255,255,255,0.2)',
+    color: 'var(--white)',
+    fontSize: '1.2rem',
     cursor: 'pointer',
-    fontSize: '1rem',
+    borderRadius: '8px',
+    padding: '0.35rem 0.7rem',
+    transition: 'border-color 0.2s',
   },
-  mobileMenu: {
+  drawer: {
+    position: 'fixed',
+    top: '64px',
+    left: 0,
+    right: 0,
+    background: 'var(--navy-mid)',
+    zIndex: 99,
+    padding: '1.5rem',
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
-    background: '#16213e',
-    padding: '1rem',
-    gap: '1rem',
-    marginTop: '0.5rem',
+    gap: '0.5rem',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
   },
-  mobileLink: {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1.1rem',
-    padding: '0.5rem 0',
-    borderBottom: '1px solid #333',
-  },
-  mobileWelcome: {
-    color: '#a0c4ff',
+  drawerUser: {
+    color: 'var(--amber)',
+    fontWeight: '600',
     fontSize: '1rem',
+    padding: '0.5rem 0',
+    borderBottom: '1px solid rgba(255,255,255,0.1)',
+    marginBottom: '0.5rem',
   },
-  mobileButton: {
-    background: '#e63946',
+  drawerLink: {
+    color: 'var(--white)',
+    textDecoration: 'none',
+    fontSize: '1.05rem',
+    padding: '0.75rem 0',
+    borderBottom: '1px solid rgba(255,255,255,0.07)',
+    display: 'block',
+  },
+  drawerLogout: {
+    marginTop: '0.5rem',
+    background: 'var(--danger)',
     color: 'white',
     border: 'none',
-    padding: '0.7rem',
-    borderRadius: '6px',
+    padding: '0.75rem',
+    borderRadius: '8px',
     cursor: 'pointer',
     fontSize: '1rem',
-    textAlign: 'left',
+    fontFamily: 'var(--font-body)',
+    fontWeight: '500',
   },
 };

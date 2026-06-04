@@ -2,9 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/globe.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>Travel Bucket List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --navy: #0d1b2a;
+        --navy-mid: #1b2d42;
+        --navy-light: #243b55;
+        --amber: #e8a838;
+        --amber-dark: #c8891a;
+        --cream: #f5f0e8;
+        --cream-dark: #e8e0d0;
+        --text: #1a1a2e;
+        --text-muted: #6b7280;
+        --white: #ffffff;
+        --danger: #dc2626;
+        --success: #16a34a;
+        --radius: 16px;
+        --radius-sm: 8px;
+        --shadow: 0 4px 24px rgba(13,27,42,0.12);
+        --shadow-lg: 0 8px 48px rgba(13,27,42,0.20);
+        --font-display: 'Playfair Display', Georgia, serif;
+        --font-body: 'DM Sans', system-ui, sans-serif;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--cream);
+        color: var(--text);
+        min-height: 100vh;
+      }
+      a { color: inherit; }
+      button { font-family: var(--font-body); }
+    </style>
   </head>
   <body>
     <div id="root"></div>

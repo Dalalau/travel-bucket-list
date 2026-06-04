@@ -9,7 +9,7 @@ import DestinationDetail from './pages/DestinationDetail';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', fontFamily:'var(--font-body)' }}>Loading...</div>;
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
@@ -21,12 +21,8 @@ function AppRoutes() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/destinations" element={
-          <ProtectedRoute><Destinations /></ProtectedRoute>
-        } />
-        <Route path="/destinations/:id" element={
-          <ProtectedRoute><DestinationDetail /></ProtectedRoute>
-        } />
+        <Route path="/destinations" element={<ProtectedRoute><Destinations /></ProtectedRoute>} />
+        <Route path="/destinations/:id" element={<ProtectedRoute><DestinationDetail /></ProtectedRoute>} />
       </Routes>
     </>
   );
