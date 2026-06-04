@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest --testEnvironment=node",
-    "migrate": "prisma migrate dev"
-  },
+    "migrate": "prisma migrate dev",
+    "test": "jest --testEnvironment=node --forceExit --testTimeout=30000 --runInBand"  },
   "keywords": [],
   "author": "",
   "license": "ISC",
